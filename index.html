@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>libp2p-websocket-websys use-after-free reproduction</title>
+    <script type="module">
+        import init, { connect } from "./pkg/libp2p_websocket_reproduction.js";
+
+        init()
+
+        async function run(addr) {
+            console.log("Connecting...");
+            await connect(addr);
+            console.log("Done");
+        }
+
+        async function connect_seed() {
+            run("/dns4/seed1.pos.nimiq-testnet.com/tcp/8443/wss")
+        }
+
+        document.getElementById("connect-seed").addEventListener("click", connect_seed);
+    </script>
+</head>
+<body>
+    <p>
+        <button id="connect-seed">Connect to Seed</button>
+    </p>
+</body>
+</html>
